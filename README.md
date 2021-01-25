@@ -1,3 +1,11 @@
+# Todo
+
+Write Policy for Cloud DB
+
+Not include all of Firebase SDK in project
+
+USE CDN instance of firebase sdk
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
