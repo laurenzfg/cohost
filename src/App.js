@@ -36,7 +36,9 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header" style={{backgroundColor: this.state.bgcol}}>
-          <Stopwatch time={this.state.time}/>
+          <div style={{fontSize: '3em', backgroundColor: '#1a1a1a', opacity : '0.7', padding: '10px', borderRadius: '7px'}}>
+            <Stopwatch time={this.state.time}/>
+          </div>
           <Button variant="contained" size="large" color="primary" onClick={this.handleBlinkenlight} style={{marginTop: '2em'}}>
             Toggle the blinkenlight
           </Button>
