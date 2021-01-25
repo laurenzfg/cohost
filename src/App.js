@@ -1,12 +1,13 @@
 import React from 'react';
 import firebase from './firebase' 
 import './App.css';
+import Stopwatch from './Stopwatch'
 import Button from '@material-ui/core/Button';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {bgcol: "white"};
+    this.state = {bgcol: "white", time: 0};
   }
 
   handleBlinkenlight = () => {
@@ -16,15 +17,18 @@ class App extends React.Component {
     } else {
       nextbgcol =  "#85f779";
     }
-    this.setState({bgcol: nextbgcol});
     firebase.database().ref('/').update({bgcol: nextbgcol});
+  }
+
+  handleRestartTimer = () => {
+    firebase.database().ref('/').update({time: Date.now()});
   }
 
   componentDidMount () {
     var updatebg = firebase.database().ref('/');
     updatebg.on('value', (snapshot) => {
       var v = snapshot.val(); 
-      this.setState({bgcol: v.bgcol});
+      this.setState({bgcol: v.bgcol, time: v.time});
     })
   }
 
@@ -32,11 +36,12 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header" style={{backgroundColor: this.state.bgcol}}>
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <Button variant="contained" size="large" color="primary" onClick={this.handleBlinkenlight}>
+          <Stopwatch time={this.state.time}/>
+          <Button variant="contained" size="large" color="primary" onClick={this.handleBlinkenlight} style={{marginTop: '2em'}}>
             Toggle the blinkenlight
+          </Button>
+          <Button variant="contained" size="small" onClick={this.handleRestartTimer} style={{marginTop: '9em'}}>
+            Restart the timer
           </Button>
         </header>
       </div>
